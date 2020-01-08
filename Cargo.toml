@@ -1,0 +1,16 @@
+[package]
+name = "hydra-auth-example-rs"
+version = "0.1.0"
+authors = ["Jonathan Fok Kan <jfokkan@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+warp = { git = "https://github.com/seanmonstar/warp.git", rev = "e94309e274872efed34e2a80f1e4553a45963510" }
+tokio = "0.2.6"
+
+log = "0.4.8"
+env_logger = "0.7"
+
+tera = "1.0.1"
