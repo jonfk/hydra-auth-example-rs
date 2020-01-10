@@ -17,12 +17,11 @@ impl APIClient {
         }
     }
 
-    pub fn admin_api(&self) -> &dyn crate::apis::AdminApi{
+    pub fn admin_api(&self) -> &dyn crate::apis::AdminApi {
         self.admin_api.as_ref()
     }
 
-    pub fn public_api(&self) -> &dyn crate::apis::PublicApi{
+    pub fn public_api(&self) -> &dyn crate::apis::PublicApi {
         self.public_api.as_ref()
     }
-
 }
