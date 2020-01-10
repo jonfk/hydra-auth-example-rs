@@ -29,8 +29,6 @@ services:
       - SECRETS_SYSTEM=youReallyNeedToChangeThis
       - SECRETS_COOKIE=youReallyNeedToChangeThisToo
       - OAUTH2_EXPOSE_INTERNAL_ERRORS=1
-      - OIDC_SUBJECT_TYPES_SUPPORTED=public,pairwise
-      - OIDC_SUBJECT_TYPE_PAIRWISE_SALT=youReallyNeedToChangeThisToo2
     restart: unless-stopped
 
   hydra-migrate:
