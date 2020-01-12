@@ -124,20 +124,20 @@ pub fn login_page() -> warp::filters::BoxedFilter<(impl warp::Reply,)> {
         .boxed()
 }
 
-pub fn accept_login() -> warp::filters::BoxedFilter<(impl warp::Reply,)> {
-    #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-    struct FormBody {
-        login_challenge: Option<String>,
-        username: String,
-        password: String,
-    }
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct LoginFormBody {
+    pub login_challenge: Option<String>,
+    pub username: String,
+    pub password: String,
+}
 
+pub fn accept_login() -> warp::filters::BoxedFilter<(impl warp::Reply,)> {
     warp::post()
         .and(
             warp::body::content_length_limit(1024 * 32)
                 .and(warp::body::form())
                 .and(with_hydra_api())
-                .map(|form_body: FormBody, hydra_api: AdminApiClient| {
+                .map(|form_body: LoginFormBody, hydra_api: AdminApiClient| {
                     // Add logic here to verify the username and password from the submitted login form
 
                     // Accepting login request, although you could still deny the login request if something else went wrong
@@ -253,25 +253,25 @@ pub fn consent_page() -> warp::filters::BoxedFilter<(impl warp::Reply,)> {
         .boxed()
 }
 
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub enum ConsentStatus {
+    Authorize,
+    Deny,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct ConsentFormBody {
+    pub consent_challenge: String,
+    pub submit: ConsentStatus,
+}
+
 pub fn accept_consent() -> warp::filters::BoxedFilter<(impl warp::reply::Reply,)> {
-    #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-    enum ConsentStatus {
-        Authorize,
-        Deny,
-    }
-
-    #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-    struct FormBody {
-        consent_challenge: String,
-        submit: ConsentStatus,
-    }
-
     warp::post()
         .and(
             warp::body::content_length_limit(1024 * 32)
                 .and(warp::body::form())
                 .and(with_hydra_api())
-                .map(|form_body: FormBody, hydra_api: AdminApiClient| {
+                .map(|form_body: ConsentFormBody, hydra_api: AdminApiClient| {
                     let consent_challenge = form_body.consent_challenge;
 
                     // The challenge is used to fetch information about the consent request from ORY Hydra.
