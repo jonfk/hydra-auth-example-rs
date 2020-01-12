@@ -11,18 +11,18 @@
 use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
-use std::rc::Rc;
+use std::sync::Arc;
 
 use reqwest;
 
 use super::{configuration, Error};
 
 pub struct AdminApiClient {
-    configuration: Rc<configuration::Configuration>,
+    configuration: Arc<configuration::Configuration>,
 }
 
 impl AdminApiClient {
-    pub fn new(configuration: Rc<configuration::Configuration>) -> AdminApiClient {
+    pub fn new(configuration: Arc<configuration::Configuration>) -> AdminApiClient {
         AdminApiClient { configuration }
     }
 }
