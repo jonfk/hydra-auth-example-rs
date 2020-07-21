@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 hydra = { path = "../hydra" }
 
-warp = "0.2.0"
+warp = "0.2.4"
 tokio = { version = "0.2", features = ["full"] }
 
 log = "0.4.8"
